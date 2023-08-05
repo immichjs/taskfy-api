@@ -17,7 +17,17 @@ export class DirectoryService {
   ) {}
 
   async findAllDirectories(): Promise<Directory[]> {
-    return this.directoryRepository.find();
+    return this.directoryRepository.find({
+      relations: ['tasks'],
+    });
+  }
+
+  async findAllDirectoriesByUser(id: string): Promise<Directory[]> {
+    return this.directoryRepository.find({
+      where: {
+        user: { id },
+      },
+    });
   }
 
   async findOneDirectory(id: string): Promise<Directory> {

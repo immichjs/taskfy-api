@@ -7,6 +7,7 @@ import { Task } from './entities/task.entity';
 import { TaskStatus } from './entities/task-status.entity';
 import { DirectoryController } from './modules/directory/directory.controller';
 import { DirectoryModule } from './modules/directory/directory.module';
+import { TaskModule } from './modules/task/task.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DirectoryModule } from './modules/directory/directory.module';
     }),
     UserModule,
     DirectoryModule,
+    TaskModule,
   ],
 })
 export class AppModule {}

@@ -22,6 +22,13 @@ export class DirectoryController {
     return this.directoryService.findAllDirectories();
   }
 
+  @Get('/user/:id')
+  async findAllDirectoriesByUser(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<Directory[]> {
+    return this.directoryService.findAllDirectoriesByUser(id);
+  }
+
   @Get(':id')
   async findOneDirectory(
     @Param('id', new ParseUUIDPipe()) id: string,

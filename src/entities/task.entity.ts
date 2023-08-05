@@ -4,7 +4,6 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -32,12 +31,9 @@ export class Task {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Directory, (directory) => directory.user)
-  directory: Directory[];
+  @ManyToOne(() => Directory, (directory) => directory.tasks)
+  directory: Directory;
 
   @ManyToOne(() => User, (user) => user.tasks)
   user: User;
-
-  @OneToMany(() => TaskStatus, (taskStatus) => taskStatus.task)
-  status: TaskStatus[];
 }

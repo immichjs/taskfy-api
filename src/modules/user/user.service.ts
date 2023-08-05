@@ -18,13 +18,15 @@ export class UserService {
   ) {}
 
   async findAllUsers(): Promise<User[]> {
-    return this.userRepository.find({ relations: ['directories'] });
+    return this.userRepository.find({
+      relations: ['directories', 'directories.tasks'],
+    });
   }
 
   async findOneUser(id: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id },
-      relations: ['directories'],
+      relations: ['directories', 'directories.tasks'],
     });
 
     if (!user) {
@@ -93,11 +95,11 @@ export class UserService {
       throw new BadRequestException('Senha incorreta.');
     }
 
-    await this.userRepository.update(id, {
-      firstname,
-      lastname,
-      password: newPassword,
-    });
+    if (firstname) hasUser.firstname = firstname;
+    if (lastname) hasUser.lastname = lastname;
+    if (newPassword) hasUser.password = await encryptData(newPassword);
+
+    await this.userRepository.save(hasUser);
 
     const user = await this.userRepository.findOne({ where: { id } });
 

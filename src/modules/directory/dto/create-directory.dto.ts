@@ -9,6 +9,7 @@ export class CreateDirectoryDto {
   @IsString({ message: 'Descrição precisa ser uma string.' })
   description: string;
 
+  @IsNotEmpty({ message: 'Usuário não pode ser vaizo.' })
   @IsUUID('4', { message: 'Usuário vinculado incorretamente.' })
   user: User;
 }
